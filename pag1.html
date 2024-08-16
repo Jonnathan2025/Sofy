@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botón de Corazón con Efecto de Latido y Aura</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden; /* Para ocultar los pétalos que salen de la pantalla */
+        }
+
+        .heart-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            width: 100px;
+            height: 90px;
+            position: relative;
+        }
+
+        .heart {
+            width: 100px;
+            height: 90px;
+            background-color: #E63946;
+            position: relative;
+            transform: rotate(-45deg);
+            transform-origin: center center;
+            animation: heartbeat 3s infinite; /* Animación de latido */
+            box-shadow:  50% 50% 0 0;/* Aura roja */
+            
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 100px;
+            height: 90px;
+            background-color: #E63946;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -45px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 45px;
+        }
+
+        .heart-button span {
+            position: absolute;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            z-index: 2;
+        }
+
+        /* Estilo para los pétalos */
+        .petal {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('petal.png'); /* Asegúrate de que el archivo 'petal.png' esté en la misma carpeta */
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: fall linear infinite;
+        }
+
+        /* Animación para la caída de los pétalos */
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                top: 110%;
+                transform: rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Animación de latido */
+        @keyframes heartbeat {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                transform: scale(1) rotate(-45deg);
+                box-shadow: 0 0 15px rgba(230, 57, 70, 0.5); /* Aura pequeña */
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: scale(1.2) rotate(-45deg);
+                box-shadow: 0 0 30px rgba(230, 57, 70, 0.7); /* Aura más grande */
+            }
+        }
+
+        /* Creación de múltiples pétalos con diferentes velocidades y posiciones */
+        .petal:nth-child(1) {
+            left: 10%;
+            animation-duration: 7s;
+            animation-delay: 0s;
+        }
+        .petal:nth-child(2) {
+            left: 30%;
+            animation-duration: 5s;
+            animation-delay: 2s;
+        }
+        .petal:nth-child(3) {
+            left: 50%;
+            animation-duration: 6s;
+            animation-delay: 4s;
+        }
+        .petal:nth-child(4) {
+            left: 70%;
+            animation-duration: 8s;
+            animation-delay: 6s;
+        }
+        .petal:nth-child(5) {
+            left: 90%;
+            animation-duration: 4s;
+            animation-delay: 1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    
+    <button class="heart-button" onclick="window.location.href='pag2.html'">
+        <div class="heart"></div>
+        <span>Empezar</span>
+    </button>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapo - UWAIE Lyrics</title>
+    <style>
+      body {
+    background: black;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0;
+    position: relative;
+}
+
+#lyrics {
+    font-size: 2.5vw; /* Ajuste a vw para responsividad */
+    margin-top: 2vh;
+    line-height: 1.2em;
+    z-index: 1;
+    color: #fff;
+    font-family: 'Verdana', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                color: white;
+                opacity: 1;
+            }
+            100% {
+                color: white;
+                opacity: 0;
+            }
+        }
+
+        .fade-out {
+            animation: fadeOut 5s forwards;
+        }
+
+        @keyframes stars {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .star {
+    position: absolute;
+    width: 1.5vw; /* Ajuste a vw */
+    height: 1.5vw;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    animation: stars linear infinite, flicker 1.5s ease-in-out infinite;
+}
+
+        .star:nth-child(1) {
+            left: 5%;
+            top: -5%;
+            animation-duration: 5s;
+        }
+
+        .star:nth-child(2) {
+            left: 15%;
+            top: -10%;
+            animation-duration: 6s;
+        }
+
+        .star:nth-child(3) {
+            left: 25%;
+            top: -15%;
+            animation-duration: 4s;
+        }
+
+        .star:nth-child(4) {
+            left: 35%;
+            top: -20%;
+            animation-duration: 7s;
+        }
+
+        .star:nth-child(5) {
+            left: 45%;
+            top: -25%;
+            animation-duration: 5s;
+        }
+
+        .star:nth-child(6) {
+            left: 55%;
+            top: -30%;
+            animation-duration: 6.5s;
+        }
+
+        .star:nth-child(7) {
+            left: 65%;
+            top: -35%;
+            animation-duration: 7.5s;
+        }
+
+        .star:nth-child(8) {
+            left: 75%;
+            top: -40%;
+            animation-duration: 4.5s;
+        }
+
+        .star:nth-child(9) {
+            left: 85%;
+            top: -45%;
+            animation-duration: 6s;
+        }
+        #playButton {
+    position: absolute;
+    width: 15vw;
+    height: 15vw;
+    max-width: 100px;
+    max-height: 100px;
+    background-color: gold;
+    border: none;
+    cursor: pointer;
+    transform: translate(-50%, -50%) rotate(-35deg);
+    z-index: 2;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+    left: 50%;
+    top: 50%;
+}
+
+#playButton:after {
+    content: "Haz clic!";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2vw; /* Ajuste relativo al tamaño del botón */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Media queries para asegurar que el texto se ajuste en pantallas pequeñas */
+@media (max-width: 480px) {
+    #playButton {
+        width: 25vw;
+        height: 25vw;
+        max-width: 60px;
+        max-height: 60px;
+    }
+
+    #playButton:after {
+        font-size: 2vw; /* Ajuste relativo al tamaño del botón en pantallas pequeñas */
+    }
+}
+
+
+        @media (max-width: 480px) {
+            #lyrics {
+                font-size: 6vw;
+                line-height: 1.3em;
+            }
+
+            #playButton {
+                width: 25vw;
+                height: 25vw;
+                max-width: 60px;
+                max-height: 60px;
+            }
+
+            #playButton:after {
+                font-size: 2.5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="audio">
+        <source src="audio.mp3" type="audio/mp3">
+        <source src="audio.ogg" type="audio/ogg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <button id="playButton"></button>
+
+    <div id="lyrics">
+        <p id="line1" class="hidden"></p>
+        <p id="line2" class="hidden">Ay, me he inventado cosas pa' llamar la atención de tí</p>
+        <p id="line3" class="hidden">Y no solo por lo hermosa, niña, tu brillo me tiene así</p>
+        <p id="line4" class="hidden">Siéntate y piensa en algo, y quiero ser ese algo</p>
+        <p id="line5" class="hidden">Ay, procura seducirla mucho, hasta que se dio</p>
+        <br>
+        <p id="line6" class="hidden">Flaca, vos sos hermosa, y te mereces todo</p>
+        <p id="line7" class="hidden">Amarte es mi necesidad, mi necesidad</p>
+        <p id="line8" class="hidden">De ti me gustan cosas, la verdad todo</p>
+        <p id="line9" class="hidden">Quitarte es inseguridad, mi necesidad</p>
+    </div>
+
+    <!-- Estrellas animadas -->
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const playButton = document.getElementById('playButton');
+        const lines = [
+            { time: 0, id: 'line1' },
+            { time: 5, id: 'line2' },
+            { time: 10, id: 'line3' },
+            { time: 15, id: 'line4' },
+            { time: 20, id: 'line5' },
+            { time: 25, id: 'line6' },
+            { time: 30, id: 'line7' },
+            { time: 35, id: 'line8' },
+            { time: 40, id: 'line9' },
+        ];
+
+        function updateLyrics() {
+            const currentTime = audio.currentTime;
+
+            lines.forEach((line, index) => {
+                const element = document.getElementById(line.id);
+
+                if (currentTime >= line.time) {
+                    element.classList.remove('hidden');
+                    element.classList.add('fade-out');
+                } else {
+                    element.classList.add('hidden');
+                    element.classList.remove('fade-out');
+                }
+
+                if (currentTime >= (lines[index + 1]?.time || Infinity)) {
+                    element.classList.add('hidden');
+                }
+            });
+        }
+
+        function playAudio() {
+            audio.play().catch(error => {
+                console.error('Error al intentar reproducir el audio:', error);
+            });
+        }
+
+        playButton.addEventListener('click', () => {
+            playAudio();
+            playButton.style.display = 'none'; // Ocultar el botón después de hacer clic
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            updateLyrics();
+
+            if (audio.currentTime >= 44) {
+                audio.pause();
+                audio.currentTime = 0; 
+                window.location.href = 'pag3.html'; 
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te Amo con Flores de Cerezo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #f8e7e1;
+            position: relative;
+        }
+
+        .container {
+            font-size: 3em;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            position: relative;
+            white-space: nowrap;
+            color: #333;
+        }
+
+        .bars {
+            color: black;
+            z-index: 2;
+        }
+
+        .text {
+            color: #333;
+            margin: 0 2em; /* Espacio para las flores a los lados */
+        }
+
+        .heart {
+            color: red;
+        }
+
+        .name {
+            font-size: 2em;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin-bottom: 0.5em;
+            opacity: 0;
+            transition: opacity 1s;
+            animation: bounce 2s infinite; /* Animación para el nombre */
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('cere.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .flower:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+        .flower:nth-child(2) { left: 20%; animation-duration: 8s; animation-delay: 2s; }
+        .flower:nth-child(3) { right: 20%; animation-duration: 8s; animation-delay: 4s; }
+        .flower:nth-child(4) { right: 10%; animation-duration: 8s; animation-delay: 6s; }
+        .flower:nth-child(5) { left: 30%; animation-duration: 9s; animation-delay: 1s; }
+        .flower:nth-child(6) { left: 40%; animation-duration: 9s; animation-delay: 3s; }
+        .flower:nth-child(7) { right: 40%; animation-duration: 9s; animation-delay: 5s; }
+        .flower:nth-child(8) { right: 30%; animation-duration: 9s; animation-delay: 7s; }
+
+        .button {
+            position: absolute;
+            bottom: 20px;
+            padding: 12px 24px;
+            font-size: 1.2em;
+            background: linear-gradient(145deg, #ff6f61, #ff9a8b);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: linear-gradient(145deg, #ff9a8b, #ff6f61);
+            transform: translateY(-3px);
+            box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="name">Sofy</div>
+
+<div class="flower"></div>
+<div class="flower"></div>
+<div class="flower"></div>
+<div class="flower"></div>
+<div class="flower"></div>
+<div class="flower"></div>
+<div class="flower"></div>
+<div class="flower"></div>
+
+<div class="container">
+    <span class="bars">||</span>
+    <span class="text">I L❤️VE YOU</span>
+    <span class="bars">||</span>
+</div>
+
+<button class="button" onclick="window.location.href='pag1.html'">Regresar</button>
+
+<audio id="backgroundMusic" src="audio2.mp3" preload="auto"></audio>
+
+<script>
+    const textElement = document.querySelector('.text');
+    const bars = document.querySelectorAll('.bars');
+    const nameElement = document.querySelector('.name');
+    const fullText = "I L❤️VE YOU";
+    const heartIndex = fullText.indexOf("❤️");
+    let leftIndex = 0;
+    let rightIndex = fullText.length - 1;
+    let intervalTime = 200;  // Tiempo entre cada letra que desaparece (en milisegundos)
+
+    function animateBars() {
+        const interval = setInterval(() => {
+            if (leftIndex < heartIndex && rightIndex > heartIndex + 1) {
+                leftIndex++;
+                rightIndex--;
+                const newText = fullText.substring(leftIndex, rightIndex + 1);
+                textElement.textContent = newText;
+            } else {
+                textElement.textContent = "❤️"; // Deja solo el corazón
+                clearInterval(interval);
+                // bars.forEach(bar => bar.style.color = "transparent"); // Ocultar las barras al final
+                nameElement.style.opacity = 1; // Mostrar el nombre "Sofy"
+            }
+        }, intervalTime);
+    }
+
+    function startAudio() {
+        const audioElement = document.getElementById('backgroundMusic');
+        audioElement.play().catch(error => {
+            console.error('No se pudo reproducir el audio:', error);
+        });
+    }
+
+    document.addEventListener('click', () => {
+        startAudio();
+        document.removeEventListener('click', startAudio); // Evita repetir la función al hacer más clics
+    });
+
+    window.onload = animateBars;
+</script>
+
+</body>
+</html>
